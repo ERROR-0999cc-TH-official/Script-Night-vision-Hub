@@ -24,7 +24,7 @@ for index, notif in ipairs(notifications) do
 	task.wait(notif.delay)  
 	pcall(function()  
 		game.StarterGui:SetCore("SendNotification", {  
-			Title = "[ Anti-AFK-Hud ]",  
+			Title = "[ Anti-AFK-Hub ]",  
 			Text = notif.text,  
 			Duration = 8  
 		})  
@@ -132,86 +132,94 @@ for index, notif in ipairs(notifications) do
 					confirmGui:Destroy()
 					if changelogGui then changelogGui:Destroy() end
 					if toggleButtonGui then toggleButtonGui:Destroy() end
+					-- คืนค่าแสงเป็นค่าเริ่มต้น
+					local Lighting = game:GetService("Lighting")
+					Lighting.ExposureCompensation = 1
+					Lighting.FogStart = 0
+					Lighting.FogEnd = 100000
+					Lighting.ClockTime = 14
+					-- ปิดสคริปต์ (หากคุณต้องการเพิ่มฟังก์ชันนี้ คุณต้องจัดการด้วยตัวเอง)
 				end)
 			end)
-          -- เส้นกั้น
-local line = Instance.new("Frame", frame)    
+
+			-- เส้นกั้น
+			local line = Instance.new("Frame", frame)    
 			line.Size = UDim2.new(1, -20, 0, 2)    
 			line.Position = UDim2.new(0, 10, 0, 40)    
 			line.BackgroundColor3 = Color3.fromRGB(0, 0, 0)    
 			line.ZIndex = 10    
 			addCorner(line, 1)  
 
-local Lighting = game:GetService("Lighting")
+			local Lighting = game:GetService("Lighting")
 
--- กำจัดหมอก + ตั้งเวลา
-Lighting.FogStart = 1e10
-Lighting.FogEnd = 1e10
-Lighting.ClockTime = 12
-Lighting.ExposureCompensation = 1 -- เริ่มต้น
+			-- กำจัดหมอก + ตั้งเวลา
+			Lighting.FogStart = 1e10
+			Lighting.FogEnd = 1e10
+			Lighting.ClockTime = 12
+			Lighting.ExposureCompensation = 1 -- เริ่มต้น
 
--- UI Container
-local brightnessFrame = Instance.new("Frame")
-brightnessFrame.Size = UDim2.new(0, 300, 0, 100)
-brightnessFrame.Position = UDim2.new(0, 50, 0, 400)
-brightnessFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-brightnessFrame.Parent = modeFrame -- ใส่ใน GUI หลักของคุณ
-addCorner(brightnessFrame, 12)
+			-- UI Container สำหรับปรับความสว่าง
+			local brightnessFrame = Instance.new("Frame")
+			brightnessFrame.Size = UDim2.new(0, 300, 0, 100)
+			brightnessFrame.Position = UDim2.new(0, 50, 0, 400)
+			brightnessFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+			brightnessFrame.Parent = changelogGui -- ใส่ใน GUI หลักของคุณ
+			addCorner(brightnessFrame, 12)
 
--- ปุ่มเพิ่ม
-local plusBtn = Instance.new("TextButton")
-plusBtn.Size = UDim2.new(0, 80, 0, 40)
-plusBtn.Position = UDim2.new(0, 10, 0, 10)
-plusBtn.Text = "+"
-plusBtn.TextSize = 24
-plusBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-plusBtn.TextColor3 = Color3.new(1, 1, 1)
-plusBtn.Parent = brightnessFrame
-addCorner(plusBtn, 8)
+			-- ปุ่มเพิ่มแสง
+			local plusBtn = Instance.new("TextButton")
+			plusBtn.Size = UDim2.new(0, 80, 0, 40)
+			plusBtn.Position = UDim2.new(0, 10, 0, 10)
+			plusBtn.Text = "เพิ่มแสง"
+			plusBtn.TextSize = 24
+			plusBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			plusBtn.TextColor3 = Color3.new(1, 1, 1)
+			plusBtn.Parent = brightnessFrame
+			addCorner(plusBtn, 8)
 
--- ปุ่มลด
-local minusBtn = Instance.new("TextButton")
-minusBtn.Size = UDim2.new(0, 80, 0, 40)
-minusBtn.Position = UDim2.new(0, 10, 0, 50)
-minusBtn.Text = "-"
-minusBtn.TextSize = 24
-minusBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-minusBtn.TextColor3 = Color3.new(1, 1, 1)
-minusBtn.Parent = brightnessFrame
-addCorner(minusBtn, 8)
+			-- ปุ่มลดแสง
+			local minusBtn = Instance.new("TextButton")
+			minusBtn.Size = UDim2.new(0, 80, 0, 40)
+			minusBtn.Position = UDim2.new(0, 10, 0, 50)
+			minusBtn.Text = "ลดแสง"
+			minusBtn.TextSize = 24
+			minusBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			minusBtn.TextColor3 = Color3.new(1, 1, 1)
+			minusBtn.Parent = brightnessFrame
+			addCorner(minusBtn, 8)
 
--- กล่องแสดงสถานะความสว่าง
-local brightnessDisplay = Instance.new("TextBox")
-brightnessDisplay.Size = UDim2.new(0, 150, 0, 40)
-brightnessDisplay.Position = UDim2.new(0, 110, 0, 30)
-brightnessDisplay.Text = "ความสว่าง: " .. tostring(Lighting.ExposureCompensation)
-brightnessDisplay.TextSize = 18
-brightnessDisplay.Font = Enum.Font.SourceSansBold
-brightnessDisplay.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-brightnessDisplay.TextColor3 = Color3.new(1, 1, 1)
-brightnessDisplay.ClearTextOnFocus = false
-brightnessDisplay.TextEditable = false -- ป้องกันการพิมพ์
-brightnessDisplay.Parent = brightnessFrame
-addCorner(brightnessDisplay, 8)
+			-- กล่องแสดงสถานะความสว่าง
+			local brightnessDisplay = Instance.new("TextBox")
+			brightnessDisplay.Size = UDim2.new(0, 150, 0, 40)
+			brightnessDisplay.Position = UDim2.new(0, 110, 0, 30)
+			brightnessDisplay.Text = "ความสว่าง: " .. tostring(Lighting.ExposureCompensation)
+			brightnessDisplay.TextSize = 18
+			brightnessDisplay.Font = Enum.Font.SourceSansBold
+			brightnessDisplay.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			brightnessDisplay.TextColor3 = Color3.new(1, 1, 1)
+			brightnessDisplay.ClearTextOnFocus = false
+			brightnessDisplay.TextEditable = false -- ป้องกันการพิมพ์
+			brightnessDisplay.Parent = brightnessFrame
+			addCorner(brightnessDisplay, 8)
 
--- ฟังก์ชันอัปเดตข้อความ
-local function updateDisplay()
-	brightnessDisplay.Text = "ความสว่าง: " .. tostring(Lighting.ExposureCompensation)
-end
+			-- ฟังก์ชันอัปเดตข้อความ
+			local function updateDisplay()
+				brightnessDisplay.Text = "ความสว่าง: " .. tostring(Lighting.ExposureCompensation)
+			end
 
--- เพิ่มแสง
-plusBtn.MouseButton1Click:Connect(function()
-	local newValue = math.clamp(Lighting.ExposureCompensation + 0.5, -2, 60)
-	Lighting.ExposureCompensation = newValue
-	updateDisplay()
-end)
+			-- เพิ่มแสง
+			plusBtn.MouseButton1Click:Connect(function()
+				local newValue = math.clamp(Lighting.ExposureCompensation + 0.5, -2, 60)
+				Lighting.ExposureCompensation = newValue
+				updateDisplay()
+			end)
 
--- ลดแสง
-minusBtn.MouseButton1Click:Connect(function()
-	local newValue = math.clamp(Lighting.ExposureCompensation - 0.5, -2, 60)
-	Lighting.ExposureCompensation = newValue
-	updateDisplay()
-end)
+			-- ลดแสง
+			minusBtn.MouseButton1Click:Connect(function()
+				local newValue = math.clamp(Lighting.ExposureCompensation - 0.5, -2, 60)
+				Lighting.ExposureCompensation = newValue
+				updateDisplay()
+			end)
 				
 			local topLeftText = Instance.new("TextLabel", frame)    
 			topLeftText.Text = "Anti-AFK-Hub V.1.4"    
