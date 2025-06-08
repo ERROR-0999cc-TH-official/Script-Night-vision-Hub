@@ -163,7 +163,7 @@ for index, notif in ipairs(notifications) do
 			brightnessFrame.Size = UDim2.new(0, 300, 0, 100)
 			brightnessFrame.Position = UDim2.new(0, 50, 0, 400)
 			brightnessFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-			brightnessFrame.Parent = changelogGui -- ใส่ใน GUI หลักของคุณ
+			brightnessFrame.Parent = PlayerGui -- ใส่ใน GUI หลักของคุณ
 			addCorner(brightnessFrame, 12)
 
 			-- ปุ่มเพิ่มแสง
