@@ -213,13 +213,13 @@ end
 
 -- การทำงานของปุ่ม
 plusBtn.MouseButton1Click:Connect(function()
-	local newValue = math.clamp(Lighting.ExposureCompensation + 0.2, -20, 20)
+	local newValue = math.clamp(Lighting.ExposureCompensation + 0.1, -20, 20)
 	Lighting.ExposureCompensation = newValue
 	updateDisplay()
 end)
 
 minusBtn.MouseButton1Click:Connect(function()
-	local newValue = math.clamp(Lighting.ExposureCompensation - 0.2, -20, 20)
+	local newValue = math.clamp(Lighting.ExposureCompensation - 0.1, -20, 20)
 	Lighting.ExposureCompensation = newValue
 	updateDisplay()
 end)
