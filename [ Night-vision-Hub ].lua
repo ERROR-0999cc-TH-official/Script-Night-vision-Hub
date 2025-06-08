@@ -258,7 +258,7 @@ end)
 				toggleButton.Size = UDim2.new(0, 40, 0, 40)  
 				toggleButton.Position = UDim2.new(0, 10, 0, 10)  
 				toggleButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)  
-				toggleButton.Text = "A"  
+				toggleButton.Text = "N"  
 				toggleButton.TextColor3 = Color3.new(1, 1, 1)  
 				toggleButton.Font = Enum.Font.SourceSansBold  
 				toggleButton.TextSize = 24  
