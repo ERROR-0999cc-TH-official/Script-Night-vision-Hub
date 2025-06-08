@@ -165,6 +165,8 @@ for index, notif in ipairs(notifications) do
 			brightnessFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 			brightnessFrame.Parent = PlayerGui -- ใส่ใน GUI หลักของคุณ
 			addCorner(brightnessFrame, 12)
+			brightnessFrame.ZIndex = 10
+			brightnessFrame.Enabled = true
 
 			-- ปุ่มเพิ่มแสง
 			local plusBtn = Instance.new("TextButton")
