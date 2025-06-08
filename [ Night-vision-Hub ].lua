@@ -134,6 +134,13 @@ for index, notif in ipairs(notifications) do
 					if toggleButtonGui then toggleButtonGui:Destroy() end
 				end)
 			end)
+          -- เส้นกั้น
+local line = Instance.new("Frame", frame)    
+			line.Size = UDim2.new(1, -20, 0, 2)    
+			line.Position = UDim2.new(0, 10, 0, 40)    
+			line.BackgroundColor3 = Color3.fromRGB(0, 0, 0)    
+			line.ZIndex = 10    
+			addCorner(line, 1)  
 
 			local topLeftText = Instance.new("TextLabel", frame)    
 			topLeftText.Text = "Anti-AFK-Hub V.1.4"    
